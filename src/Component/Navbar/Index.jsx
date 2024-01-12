@@ -4,7 +4,7 @@ import { productContext } from "../../Services/Context/ContextAPI";
 import { Link } from "react-router-dom";
 
 function Navbars() {
-  const { wishListProducts } = useContext(productContext);
+  const { wishListProducts , cartProducts } = useContext(productContext);
   // console.log(wishListProducts)
   return (
     <Navbar className="bg-body-tertiary py-3">
@@ -20,9 +20,9 @@ function Navbars() {
             </span>
           </button>
           <button type="button" class="btn btn-primary position-relative">
-            Cart
+          <Link to="/cart" style={{ color:'white',textDecoration:"none"}}> Cart</Link> 
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              10
+            {cartProducts?.length}
               <span class="visually-hidden">Cart</span>
             </span>
           </button>

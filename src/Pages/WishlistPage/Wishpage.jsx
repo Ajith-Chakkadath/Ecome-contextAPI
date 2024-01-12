@@ -6,7 +6,7 @@ import { productContext } from '../../Services/Context/ContextAPI';
 function WishPage() {
   const { wishListProducts } = useContext(productContext);
   const listOfProducts = wishListProducts;
-  console.log(listOfProducts);
+
 
   return (
     <>

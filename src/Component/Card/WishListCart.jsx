@@ -3,6 +3,13 @@ import React, { useContext } from 'react'
 import { Card, CardImg, Stack } from 'react-bootstrap'
 import { productContext } from '../../Services/Context/ContextAPI'
 function WishListCard(list) {
+
+    const [wishListProducts , setWishListProducts] = useContext(productContext)
+  
+    function deleteProduct(){
+      setWishListProducts((products) => products.filter((item) => item.id !== list.data?.id));
+    }
+
     console.log(list.data?.title);
   return (
   <Card className='m-4 justify-content-center'>
@@ -18,10 +25,10 @@ function WishListCard(list) {
     <div class="col">
     <Button className='me-2'>Add to cart</Button>
      <Button>Buy now</Button>
+     <Button onClick={deleteProduct}>Delete</Button>
     </div>
   </div>
 </div>
-    
   </Card>
   )
 }
