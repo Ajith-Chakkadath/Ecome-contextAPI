@@ -5,6 +5,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import WishPage from './Pages/WishlistPage/Wishpage';
 import Products from './Pages/ProductPage';
 import CartPage from './Pages/CartPage';
+import YourComponent from './Pages/LandingPage/tesr';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path='/cart' element={<CartPage/>}/>
       </Routes>
       </BrowserRouter>
+      {/* <YourComponent /> */}
     </div>
   );
 }

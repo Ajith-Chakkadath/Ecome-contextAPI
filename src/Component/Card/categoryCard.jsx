@@ -1,16 +1,38 @@
-import React from 'react'
+import React, { useContext, useState } from 'react';
+import { productContext } from '../../Services/Context/ContextAPI';
 
 function CategoryCard(props) {
-    console.log("calling cateogty")
-  return (
-   <>
-   {/* <div className='btn-group-vertical' aria-label="Basic checkbox Vertical toggle button group"> */}
-     <input type="checkbox" class="btn-check" id={props.data} autocomplete="off" />
-<label class="btn btn-outline-primary m-2" for={props.data}>{props.data}</label>
- {/* </div> */}
+  const [clickedIs, setClickedIs] = useState(false);
+  const { sortingList, setSortingList } = useContext(productContext);
 
-   </>
-  )
+  function addToSorting() {
+    // Toggle the state of clickedIs
+    setClickedIs((prevClickedIs) => !prevClickedIs);
+
+    // Update sortingList based on the checkbox state
+    if (!clickedIs) {
+      setSortingList((prevSortingList) => [...prevSortingList, props.data]);
+    } else {
+      setSortingList((prevSortingList) =>
+        prevSortingList.filter((item) => item !== props.data)
+      );
+    }
+  }
+  console.log(sortingList)
+
+  return (
+    <>
+      <div className='form-check'>
+        <input
+          type="checkbox"
+          className="form-check-input"
+          onClick={addToSorting}
+          checked={clickedIs}
+        />
+        <label className="form-check-label m-2">{props.data}</label>
+      </div>
+    </>
+  );
 }
 
-export default CategoryCard
+export default CategoryCard;

@@ -1,28 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CategoryCard from '../../Component/Card/categoryCard'
 import ProductCard from '../../Component/Card/ProductCard'
 import CardCustom from '../../Component/Card/ProductCard'
 import Navbars from '../../Component/Navbar/Index'
 import { allProduct } from '../../Services/Router/API/allAPI'
+import { productContext } from '../../Services/Context/ContextAPI'
 
 
 
 
 function LandingPage() {
+ const {sortingList } = useContext(productContext)
   
   const [allProducts , setAllProducts]=useState([])
  const productall =async ()=>{
  const result = await allProduct()
   setAllProducts(result.data)
  }
-const test = "string"
+
 
  useEffect (()=>{
   productall()
- } ,[test])
+ } ,[])
 
  const uniqueCategories = [...new Set(allProducts.map(all => all.category))];
- console.log(uniqueCategories)
+ 
+ const filteredProducts = sortingList.length > 0
+ ? allProducts.filter((product) => sortingList.includes(product.category))
+ : allProducts;
+
+
 
   return (
       <>
@@ -32,9 +39,9 @@ const test = "string"
       <div className='col-sm-3 col-md-2 '>
      <div className='container border'>
        <p>Categorey</p>
-       {uniqueCategories.map((data, index) => (
+      {uniqueCategories.map((data, index) => (
                 <CategoryCard key={index} data={data} />
-              ))}
+      ))}
    
      </div>
 
@@ -42,7 +49,7 @@ const test = "string"
       <div className='col-sm-9 col-md-10'>
         <div className="row">
         {
-  allProducts.map( (data , index)=>(   
+  filteredProducts.map( (data , index)=>(   
       <div className=" col-sm-8 col-md-6 col-lg-4 col-xl-4 ">
       <ProductCard data={data} />
     
