@@ -23,6 +23,9 @@ function ProductCard(props) {
         <Card.Text>
           Price <i className="fa-solid fa-indian-rupee-sign"></i> {props.data.price}
         </Card.Text>
+        <Card.Text>
+         {props.data.category}
+        </Card.Text>
         <Button className='m-2' variant="primary">
           <Link to="/details" style={{ color: 'white', textDecoration: 'none' }} onClick={knowProduct}>Know more</Link>
         </Button>
