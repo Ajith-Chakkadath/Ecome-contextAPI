@@ -1,11 +1,15 @@
 import { Button } from 'react-bootstrap'
 import React from 'react'
 import { Card, CardImg, Stack } from 'react-bootstrap'
+import { productContext } from '../../Services/Context/ContextAPI'
+import { useContext } from 'react'
 
 function CartCard(props) {
+    const { cartProducts , setCartProducts } = useContext(productContext);
 
     function deleteFromList(){
-
+        const updatedCart = cartProducts.filter((product) => product.id !== props.data?.id);
+        setCartProducts(updatedCart);
     }
    
   return (

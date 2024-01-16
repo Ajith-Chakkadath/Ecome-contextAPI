@@ -7,10 +7,11 @@ function ContextAPI({children}) {
     const [detailsProducts,setDetailsProducts]=useState()
     const [allProducts,setAllProducts]=useState()
     const [sortingList , setSortingList] = useState([])
+    const [totalPrice ,setTotalPrice] = useState(0)
 
   return (
     <>
-      <productContext.Provider value={{wishListProducts,setWishListProducts,cartProducts,setCartProducts,detailsProducts,setDetailsProducts,allProducts,setAllProducts,sortingList,setSortingList}}>
+      <productContext.Provider value={{wishListProducts,setWishListProducts,cartProducts,setCartProducts,detailsProducts,setDetailsProducts,allProducts,setAllProducts,sortingList,setSortingList,totalPrice,setTotalPrice}}>
         {children}
       </productContext.Provider>
     </>

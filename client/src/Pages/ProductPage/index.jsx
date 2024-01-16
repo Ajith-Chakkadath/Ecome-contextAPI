@@ -4,28 +4,35 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 // import { Button } from 'bootstrap';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { productContext } from '../../Services/Context/ContextAPI';
-import Navbars from '../../Component/Navbar/Index';
+import Navbars from '../../Component/Navbar/Index'
+import WishListCard from '../../Component/Card/WishListCart';
 
 function Products() {
-    const [isClicked, setClicked] = useState(true);
+    const [isClicked, setClicked] = useState(false);
     const {setWishListProducts,detailsProducts,wishListProducts} = useContext(productContext)
+    const [addToWish , SetAddToWish]=useState([])
 
     function addToCart(){
 
     }
 
     const handleButtonClick = () => {
-      // Your action when the button is clicked
-      // For now, let's just log a message
-console.log(isClicked)
     
       if (isClicked) {
-        setWishListProducts((products) => [...products, detailsProducts]);
+       
+    //  setWishListProducts([...wishListProducts, detailsProducts])
+     
+      // console.log(wishListProducts)
+
+      SetAddToWish([...addToWish ,detailsProducts])
+      console.log(addToWish)
+        
       
       } else {
-        setWishListProducts((products) => products.filter((item) => item.id !== detailsProducts.id));
+        // setWishListProducts((products) => products.filter((item) => item.id !== detailsProducts.id));
+        SetAddToWish((pre)=> pre.filter((items)=> items.id !== detailsProducts.id))
       }
     
       setClicked(!isClicked);
@@ -45,13 +52,13 @@ console.log(isClicked)
            <p>
                {detailsProducts?.description}
                     </p>
-           <p> Price 200</p>  
-           <Button
+           <p> Price {detailsProducts?.price}</p>  
+           <Button 
       variant={isClicked ? 'light' : 'light'}
       onClick={handleButtonClick}
       style={{
        
-        padding: '10px',
+    padding: '10px',
         width: '40px',
         height: '40px',
         display: 'flex',
