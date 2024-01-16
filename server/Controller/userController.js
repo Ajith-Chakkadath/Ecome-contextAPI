@@ -21,13 +21,13 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const user = await users.findOne({ username: req.body.username });
+  const user = await users.findOne({ email: req.body.email });
   if (!user) return res.status(401).send('Invalid username or password.');
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(401).send('Invalid username or password.');
 
-  const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET);
+  const accessToken = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET);
   res.json({ accessToken });
 };
 

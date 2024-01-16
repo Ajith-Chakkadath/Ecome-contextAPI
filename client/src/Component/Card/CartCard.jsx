@@ -29,7 +29,7 @@ function CartCard(props) {
           <p>{props.data?.title}</p>
           <img src={props.data?.image} style={{ width: '10rem' , height:'10rem' }}  alt="" />
           <p>Price {props.data?.price}</p>
-          <Button onClick={buyNowPage}> <Link to='/buynow' style={{ color:'white',textDecoration:"none"}}>Buy now</Link></Button>
+          <Button onClick={buyNowPage} > <Link to='/buynow' style={{ color:'white',textDecoration:"none"}}>Buy now</Link></Button>
           <Button>Add to wishlist</Button>
           <Button onClick={deleteFromList}>Delete</Button>
 

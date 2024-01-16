@@ -13,6 +13,7 @@ import { productContext } from '../src/Services/Context/ContextAPI';
 
 function App() {
   const { isAuthenticated } = useContext(productContext);
+  console.log(isAuthenticated)
 
   return (
     <div className="App">
@@ -24,14 +25,10 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/buynow"
-            element={
-              <PrivateRoute isAuthenticated={isAuthenticated}>
-                <BuyNowPage />
-              </PrivateRoute>
-            }
-          />
+        {
+          isAuthenticated ? <Route path="/buynow" element={<BuyNowPage />} /> : <Route path="/login" element={<Login />} />
+        }
+          {/* <Route path='/buynow' element={<BuyNowPage/>} /> */}
         </Routes>
       </Router>
     </div>

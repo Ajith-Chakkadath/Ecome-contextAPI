@@ -1,6 +1,6 @@
 import { login } from '../../Services/Router/API/allAPI';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { productContext } from '../../Services/Context/ContextAPI';
 
 
@@ -14,7 +14,7 @@ function Login() {
     email:"",
     password: ""
   });
-
+  const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -27,17 +27,20 @@ function Login() {
 
     try {
       const response = await login(loginDetails);
+       setIsAuthenticated(true)
       setSuccessMessage("Login Success");
       setErrorMessage('');
+      navigate('/buynow');
       const token = response.data.accesstoken;
       console.log(token);
-      setIsAuthenticated(true)
+      
       // Handle token as needed in your authentication flow
     } catch (error) {
       console.error(error);
+      setIsAuthenticated(false)
       setErrorMessage('Login failed');
       setSuccessMessage('');
-      setIsAuthenticated(false)
+      
     }
   };
 

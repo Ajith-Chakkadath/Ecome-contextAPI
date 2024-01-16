@@ -8,8 +8,6 @@ function CartPage() {
   const listOfProducts = cartProducts; // Use an empty array if cartproducts is undefined
   const totalPrice = listOfProducts.reduce((sum, product) => sum + product.price, 0);
 
- 
-
   return (
     <>
       <Navbars />

@@ -1,12 +1,13 @@
 // PrivateRoute.js
 import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, useNavigate} from 'react-router-dom';
 
 const PrivateRoute = ({ isAuthenticated }) => {
+const navigat = useNavigate()
   return isAuthenticated ? (
-    <Outlet />
+    navigat('/login')
   ) : (
-    <Navigate to="/login" />
+   <Outlet />
   );
 };
 
