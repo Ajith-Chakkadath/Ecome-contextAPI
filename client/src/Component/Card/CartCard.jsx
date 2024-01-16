@@ -3,13 +3,24 @@ import React from 'react'
 import { Card, CardImg, Stack } from 'react-bootstrap'
 import { productContext } from '../../Services/Context/ContextAPI'
 import { useContext } from 'react'
+import { Link, useNavigate} from 'react-router-dom'
 
 function CartCard(props) {
-    const { cartProducts , setCartProducts } = useContext(productContext);
+    const navigate = useNavigate()
+    const { cartProducts , setCartProducts ,isAuthenticated ,setIsAuthenticated } = useContext(productContext);
 
     function deleteFromList(){
         const updatedCart = cartProducts.filter((product) => product.id !== props.data?.id);
         setCartProducts(updatedCart);
+    }
+
+    function buyNowPage(){
+        if(isAuthenticated){
+            navigate('/buynow')
+        }
+        else{
+            navigate('/login')
+        }
     }
    
   return (
@@ -18,7 +29,7 @@ function CartCard(props) {
           <p>{props.data?.title}</p>
           <img src={props.data?.image} style={{ width: '10rem' , height:'10rem' }}  alt="" />
           <p>Price {props.data?.price}</p>
-          <Button>buy now</Button>
+          <Button onClick={buyNowPage}> <Link to='/buynow' style={{ color:'white',textDecoration:"none"}}>Buy now</Link></Button>
           <Button>Add to wishlist</Button>
           <Button onClick={deleteFromList}>Delete</Button>
 
