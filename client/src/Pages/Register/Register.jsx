@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { register } from '../../Services/Router/API/allAPI';
+
 
 
 
@@ -10,6 +11,7 @@ function Register() {
     username: "",
     email: "",
     password: "",
+    role:""
     // cnpassword: "", // Uncomment this line if you want to include password confirmation
   });
 
@@ -19,7 +21,6 @@ function Register() {
   const readLoginValue = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,6 +28,7 @@ function Register() {
       const response = await register(loginDetails);
       setSuccessMessage("Registration Success");
       setErrorMessage('');
+      console.log(response)
     } catch (error) {
       console.error(error);
       setErrorMessage('Registration failed');
@@ -46,20 +48,26 @@ function Register() {
                 <form onSubmit={handleSubmit}>
                 <div className="form-outline mb-4">
                     <label className="form-label">Username</label>
-                    <input type="text" name='username' value={loginDetails.username} className="form-control form-control-lg" onChange={readLoginValue} />
+                    <input type="text" name='username' value={loginDetails.username} className="form-control form-control-lg" onChange={readLoginValue} required />
                   </div>
 
                   <div className="form-outline mb-4">
                     <label className="form-label">Email</label>
-                    <input type="email" name='email' value={loginDetails.email} className="form-control form-control-lg" onChange={readLoginValue} />
+                    <input type="email" name='email' value={loginDetails.email} className="form-control form-control-lg" onChange={readLoginValue} required/>
                   </div>
 
                   <div className="form-outline mb-4">
                     <label className="form-label">Password</label>
-                    <input type="password" className="form-control form-control-lg" name='password' value={loginDetails.password} onChange={readLoginValue}  />
+                    <input type="password" className="form-control form-control-lg" name='password' value={loginDetails.password} onChange={readLoginValue} required />
                     <div id="passwordHelpBlock" className="form-text">
   Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
 </div>
+
+<select class="form-select" aria-label="Default select example"   >
+  <option selected>Select who are you</option>
+  <option value={loginDetails.role = "customer"} onChange={readLoginValue}   >Customer</option>
+  <option value={loginDetails.role = "seller"} onChange={readLoginValue}  >Seller</option>
+</select>
                   </div>
 
                   {/* <div className="form-outline mb-4">

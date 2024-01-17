@@ -8,6 +8,7 @@ const swaggerSpecs = require('./swagger');
 const app = express();
 const PORT = process.env.PORT || 4000;
 const authRoute = require('./Router/userRoutes');
+const productRoute = require('./Router/productRoutes')
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ mongoose.connection.once('open', () => {
 app.use(cors());  // Use the correct module
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpecs))
 app.use(bodyParser.json());
+app.use('/',productRoute)
 app.use('/users', authRoute);
 
 app.listen(PORT, () => {

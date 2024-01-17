@@ -20,8 +20,12 @@ function LandingPage() {
 
 
  useEffect (()=>{
+   console.log('welocme')
   productall()
  } ,[])
+
+console.log(allProducts)
+
 
  const uniqueCategories = [...new Set(allProducts.map(all => all.category))];
  
@@ -29,6 +33,10 @@ function LandingPage() {
  ? allProducts.filter((product) => sortingList.includes(product.category))
  : allProducts;
 
+
+//  const filteredProducts = sortingList.length > 0
+//  ? allProductList.filter((product) => sortingList.includes(product.category))
+//  : allProductList;
 
 
   return (
@@ -49,7 +57,7 @@ function LandingPage() {
       <div className='col-sm-9 col-md-10'>
         <div className="row">
         {
-  filteredProducts.map( (data , index)=>(   
+  filteredProducts.map( (data )=>(   
       <div className=" col-sm-8 col-md-6 col-lg-4 col-xl-4 ">
       <ProductCard data={data} />
     

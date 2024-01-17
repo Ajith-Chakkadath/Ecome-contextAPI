@@ -3,7 +3,7 @@ import { commonAPI } from './commanAPI'
 
 
 export const allProduct = async()=>{
-return await commonAPI("GET",`${URL_base}/products` , "" ,"")
+return await commonAPI("GET",`${base_URL}/productList` , "" ,"")
 }
 
 

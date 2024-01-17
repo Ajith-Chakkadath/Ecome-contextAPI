@@ -8,7 +8,7 @@ import { productContext } from '../../Services/Context/ContextAPI';
 
 
 function Login() {
-  const {setIsAuthenticated} = useContext(productContext)
+  const {setIsAuthenticated, setIsSeller} = useContext(productContext)
   const [loginDetails, setLoginDetails] = useState({
     username: "",
     email:"",
@@ -30,9 +30,17 @@ function Login() {
        setIsAuthenticated(true)
       setSuccessMessage("Login Success");
       setErrorMessage('');
-      navigate('/buynow');
-      const token = response.data.accesstoken;
-      console.log(token);
+      navigate('/');
+      console.log(response)
+      const token = response.data.accessToken;
+      const role = response.data.user.role
+      if (role == "seller" ){
+        setIsSeller(true)
+      }
+      else{
+        setIsSeller(false)
+      }
+     
       
       // Handle token as needed in your authentication flow
     } catch (error) {

@@ -18,7 +18,7 @@ function CategoryCard(props) {
       );
     }
   }
-  console.log(sortingList)
+
 
   return (
     <>
