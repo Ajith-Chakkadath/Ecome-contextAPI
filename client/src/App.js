@@ -10,6 +10,7 @@ import Register from './Pages/Register/Register';
 import BuyNowPage from './Pages/BuyNowPage/BuyNowPage';
 import PrivateRoute from './Services/PrivateRoutes/privateRoutes';
 import { productContext } from '../src/Services/Context/ContextAPI';
+import DashBoard from './Pages/DashBoard';
 
 function App() {
   const { isAuthenticated } = useContext(productContext);
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      {/* <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/wishlist" element={<WishPage />} />
@@ -28,9 +29,10 @@ function App() {
         {
           isAuthenticated ? <Route path="/buynow" element={<BuyNowPage />} /> : <Route path="/login" element={<Login />} />
         }
-          {/* <Route path='/buynow' element={<BuyNowPage/>} /> */}
+          
         </Routes>
-      </Router>
+      </Router> */}
+      <DashBoard />
     </div>
   );
 }

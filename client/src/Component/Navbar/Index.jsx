@@ -4,22 +4,13 @@ import { productContext } from "../../Services/Context/ContextAPI";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbars() {
-  const { wishListProducts , cartProducts ,isSeller ,isAuthenticated} = useContext(productContext);
-  let islogin = 'login'
+  const { wishListProducts , cartProducts ,isSeller ,isAuthenticated , setIsAuthenticated} = useContext(productContext);
+  const [isValue, setIsValue] = useState('logout');
    const navigate = useNavigate()
-
-      // function handleNaviagtion ( ){
-      //   if(isAuthenticated)
-      //   {
-      //     islogin='logout'
-      //   }
-      //   else {
-      //   islogin='login'
-      //     navigate('/login')
-      //   }
-      // }
-
-  // console.log(wishListProducts)
+function handleChange(){
+  isAuthenticated(false)
+}
+ 
   return (
     <Navbar className="bg-body-tertiary py-3">
       <Container>
@@ -40,11 +31,24 @@ function Navbars() {
               <span class="visually-hidden">Cart</span>
             </span>
           </button>
-          <button type="button" class="btn btn-primary me-5  ">
-        {
-          isAuthenticated? "logout" : <Link to="/login" style={{ color:'white',textDecoration:"none"}}> Login</Link> 
-        }
-          </button>
+          
+          {isAuthenticated ? (
+        <button type="button" className="btn btn-primary me-5" onClick={() => {
+          setIsAuthenticated(false);
+          setIsValue('login');
+        }}>
+          {isValue === 'login' ? (
+            <Link to="/login" style={{ color: 'white', textDecoration: "none" }}> Login</Link>
+          ) : (
+            'Logout'
+          )}
+        </button>
+      ) : (
+        <button type="button" className="btn btn-primary me-5">
+          <Link to="/login" style={{ color: 'white', textDecoration: "none" }}> Login</Link>
+        </button>
+      )}
+         
           {
             isSeller ? <button type="button" class="btn btn-primary me-5 ">
             <Link to="/productedit" style={{ color:'white',textDecoration:"none"}}>Product Edit</Link> 
