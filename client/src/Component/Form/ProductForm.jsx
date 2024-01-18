@@ -2,35 +2,59 @@ import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique IDs
 import { productContext } from '../../Services/Context/ContextAPI';
 import { useNavigate } from 'react-router-dom';
+import { addProduct } from '../../Services/Router/API/allAPI';
 
 function ProductForm() {
   const [imageUrl, setImageUrl] = useState('');
-  const { product, setProduct } = useContext(productContext);
+  const { product, setProduct , sellerId } = useContext(productContext);
   const navigate = useNavigate()
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [newProduct, setNewProduct] = useState({
     title: '',
     price: '',
-    imageUrls: '',
-    proDesc: '',
+    image: '',
+    categorey : '',
+    description: '',
   });
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async (e) => {
+
     // Generate a unique ID for the new product
     const newProductWithId = {
       id: uuidv4(),
       title: newProduct.title,
       price: newProduct.price,
-      imageUrls: imageUrl,
-      proDesc: newProduct.proDesc,
+      categorey : newProduct.categorey,
+      image: imageUrl,
+      description: newProduct.description,
     };
+
+    e.preventDefault();
+    try{
+      const response=await addProduct(newProductWithId,sellerId)
+      setSuccessMessage("Login Success");
+      setErrorMessage('');
+
+    } catch (error) {
+      console.error(error);
+      
+      setErrorMessage('Login failed');
+      setSuccessMessage('');
+      
+    }
+
+
+
 
     setProduct([...product, newProductWithId]);
 
     setNewProduct({
       title: '',
       price: '',
-      imageUrls: '',
-      proDesc: '',
+      image: '',
+      categorey: '',
+      description: '',
     });
     navigate('/')
   };
@@ -66,6 +90,15 @@ function ProductForm() {
           onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
         />
       </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputPassword1" className="form-label">Categorey</label>
+        <input
+          type="number"
+          className="form-control"
+          value={newProduct.categorey}
+          onChange={(e) => setNewProduct({ ...newProduct, categorey: e.target.value })}
+        />
+      </div>
       <div className="row d-flex align-items-center">
         <div className="col">
           <div className="input-group mb-3">
@@ -91,8 +124,8 @@ function ProductForm() {
             placeholder="Leave a comment here"
             id="floatingTextarea2"
             style={{ height: "100px" }}
-            value={newProduct.proDesc}
-            onChange={(e) => setNewProduct({ ...newProduct, proDesc: e.target.value })}
+            value={newProduct.description}
+            onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
           />
           <label htmlFor="floatingTextarea2">Product Description</label>
         </div>

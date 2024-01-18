@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Router>
+      <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/wishlist" element={<WishPage />} />
@@ -31,18 +31,19 @@ function App() {
         {
           isAuthenticated ? <Route path="/buynow" element={<BuyNowPage />} /> : <Route path="/login" element={<Login />} />
         }
-          
+           <Route path='/dashboard' element={<DashBoard />} />
+    <Route path='/productform' element={<ProductForm />} />
         </Routes>
-      </Router> */}
+      </Router>
 
       {/* <ProductManagement /> */}
 
-<Router>
+{/* <Router>
   <Routes>
-    <Route path='/' element={<DashBoard />} />
+    <Route path='/dashboard' element={<DashBoard />} />
     <Route path='/productform' element={<ProductForm />} />
   </Routes>
-</Router>
+</Router> */}
 
     </div>
   );

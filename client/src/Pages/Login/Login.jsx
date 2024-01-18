@@ -8,7 +8,7 @@ import { productContext } from '../../Services/Context/ContextAPI';
 
 
 function Login() {
-  const {setIsAuthenticated, setIsSeller} = useContext(productContext)
+  const {setIsAuthenticated, setIsSeller , setSellerId} = useContext(productContext)
   const [loginDetails, setLoginDetails] = useState({
     username: "",
     email:"",
@@ -34,8 +34,11 @@ function Login() {
       console.log(response)
       const token = response.data.accessToken;
       const role = response.data.user.role
+      const userId = response.data.user._id
+
       if (role == "seller" ){
         setIsSeller(true)
+        setSellerId(userId)
       }
       else{
         setIsSeller(false)

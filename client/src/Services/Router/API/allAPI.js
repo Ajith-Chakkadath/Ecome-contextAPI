@@ -1,37 +1,56 @@
-import {base_URL, URL_base} from './BaseURL'
-import { commonAPI } from './commanAPI'
+import { base_URL, URL_base } from './BaseURL';
+import { commonAPI } from './commanAPI';
+
 
 // List all products
-export const allProduct = async()=>{
-return await commonAPI("GET",`${base_URL}/productList` , "" ,"")
-}
+export const allProduct = async () => {
+  return await commonAPI('GET', `${base_URL}/productList`, '', '');
+};
 
-// Login 
-export const login =async(reqBody)=>{
-    return await commonAPI("POST", `${base_URL}/users/login`, reqBody, "")
-}
-//registeration
-export const register = async(reqBody)=>{
-    return await commonAPI("POST", `${base_URL}/users/register`, reqBody, "")
-}
+// Login
+export const login = async (reqBody) => {
+  return await commonAPI('POST', `${base_URL}/users/login`, reqBody, '');
+};
 
-//Seller  
-
-//add prodcut based on the
-
-//updation if done
-
-//deletion of the product 
+// Registration
+export const register = async (reqBody) => {
+  return await commonAPI('POST', `${base_URL}/users/register`, reqBody, '');
+};
 
 
-//User
+// Seller
+//list product 
+export const sellerProducts = async (reqBody,sellerId) => {
+    
+    return await commonAPI('Get', `${base_URL}/product/${sellerId}`, reqBody, '');
+  };
 
-//add to cart
+// Add product based on the sellerId
+export const addProduct = async (reqBody,sellerId) => {
+    
+  return await commonAPI('POST', `${base_URL}/product/${sellerId}/addProduct`, reqBody, '');
+};
 
-//delete from cart
+// Update product
 
-//add to buying list
+export const updateProduct = async (reqBody,sellerId ,productId) => {
+    
+    return await commonAPI('POST', `${base_URL}/product/${sellerId}/${productId}`, reqBody, '');
+  };
+// Delete product
+export const deleteProduct = async (sellerId, productId) => {
+  return await commonAPI('DELETE', `${base_URL}/product/${sellerId}/${productId}`, '', '');
+};
 
-//delete from buying list 
 
-//producted buyed
+// User
+
+// Add to cart
+
+// Delete from cart
+
+// Add to buying list
+
+// Delete from buying list
+
+// Product bought

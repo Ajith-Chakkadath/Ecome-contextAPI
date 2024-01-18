@@ -40,7 +40,7 @@ function handleChange(){
           {isValue === 'login' ? (
             <Link to="/login" style={{ color: 'white', textDecoration: "none" }}> Login</Link>
           ) : (
-            'Logout'
+            'Logout' 
           )}
         </button>
       ) : (
@@ -49,11 +49,11 @@ function handleChange(){
         </button>
       )}
          
-          {
-            isSeller ? <button type="button" class="btn btn-primary me-5 ">
-            <Link to="/productedit" style={{ color:'white',textDecoration:"none"}}>Product Edit</Link> 
-            </button> : ''
-          }
+         {isAuthenticated && isSeller && (
+            <button type="button" className="btn btn-primary me-5">
+              <Link to="/dashboard" style={{ color: 'white', textDecoration: 'none' }}>Dashboard</Link>
+            </button>
+          )}
 
         </Navbar.Collapse>
       </Container>

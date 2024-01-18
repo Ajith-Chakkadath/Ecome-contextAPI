@@ -1,9 +1,12 @@
 import React, { useContext,useState } from 'react';
 import {Link} from 'react-router-dom'
 import { productContext } from '../../Services/Context/ContextAPI';
+import { deleteProduct,updateProduct, } from '../../Services/Router/API/allAPI';
 
 function DashBoardProductCard( props) {
-const {product ,setProduct} = useContext(productContext)
+const {product ,setProduct,sellerId} = useContext(productContext)
+const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
 const [isEditing , setIsEditing] = useState(false);
 const [editedProduct,setEditedProduct]=useState(props.product)
@@ -12,16 +15,48 @@ function handleInputChange(e) {
   setEditedProduct((prevProduct)=>({...prevProduct, [e.target.name] :e.target.value}))
 }
 
-  function deleteProduct(){
+  const  deleteProducts = async (e)=>{
     const updatedCart = product.filter((products) => products.id !== props.product.id);
-    setProduct(updatedCart);}
+    setProduct(updatedCart);
+    e.preventDefault()
 
-    const handleSaveChanges = () => {
+    try{
+      const response = await deleteProduct(updatedCart,sellerId,props.product.id)
+      setSuccessMessage("Login Success");
+      setErrorMessage('');
+      
+    }catch (error) {
+      console.error(error);
+      
+      setErrorMessage('Login failed');
+      setSuccessMessage('');
+      
+    }
+
+
+  }
+
+    const handleSaveChanges = async(e) => {
       const updatedProducts = product.map((p) =>
         p.id === editedProduct.id ? { ...p, ...editedProduct } : p
       );
       setProduct(updatedProducts);
       setIsEditing(false);
+        e.preventDefault();
+
+        try{
+          const response = await updateProduct(updatedProducts,sellerId,props.product.id)
+          setSuccessMessage("Login Success");
+      setErrorMessage('');
+        }catch (error) {
+      console.error(error);
+  
+      setErrorMessage('Login failed');
+      setSuccessMessage('');
+      
+    }
+
+
     };
   
     const handleCancelEdit = () => {
@@ -56,6 +91,11 @@ function handleInputChange(e) {
               <input type='text' name='price' value={editedProduct.price} onChange={handleInputChange}/>) : (<p>{props.product.price}</p>
             )
           }
+              {
+            isEditing ?(
+              <input type='text' name='price' value={editedProduct.categorey} onChange={handleInputChange}/>) : (<p>{props.product.categorey}</p>
+            )
+          }
         </div>
         <div className="col-md-6 p-2">
         {isEditing ? (
@@ -69,9 +109,9 @@ function handleInputChange(e) {
         id="editImage"
         onChange={handleFileUpload}
       />
-      {editedProduct.imageUrls && (
+      {editedProduct.image && (
         <img
-          src={editedProduct.imageUrls}
+          src={editedProduct.image}
           alt="Edited Image"
           style={{ maxWidth: '100%', maxHeight: '300px' }}
         />
@@ -79,7 +119,7 @@ function handleInputChange(e) {
     </>
   ) : (
     <img
-      src={props.product.imageUrls}
+      src={props.product.image}
       alt=""
       style={{ width: '50%', height: 'auto' }}
     />
@@ -90,7 +130,7 @@ function handleInputChange(e) {
           <h3>Product description</h3>
           {
             isEditing ?(
-              <input type='text' name='proDesc' value={editedProduct.proDesc} onChange={handleInputChange}/>) : (<p>{props.product.proDesc}</p>
+              <input type='text' name='proDesc' value={editedProduct.description} onChange={handleInputChange}/>) : (<p>{props.product.description}</p>
             )
           }
         </div>
@@ -117,7 +157,7 @@ function handleInputChange(e) {
               <>
             <button type="button" className="btn btn-primary"><Link to="/productform" style={{ color:'white',textDecoration:"none"}}> Add new product</Link> </button>
             <button type="button" className="btn btn-primary" onClick={() => setIsEditing(true)} >Update</button>
-            <button type="button" className="btn btn-primary"onClick={deleteProduct}>Delete</button>
+            <button type="button" className="btn btn-primary"onClick={deleteProducts}>Delete</button>
             </> )}
             </div>
         </div>
