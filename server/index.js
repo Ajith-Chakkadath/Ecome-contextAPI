@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');  // Fix the typo here
+const cors = require('cors');  
+
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
@@ -22,6 +23,8 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
 });
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(cors());  // Use the correct module
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpecs))

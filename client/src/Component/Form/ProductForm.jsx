@@ -22,12 +22,13 @@ function ProductForm() {
 
     // Generate a unique ID for the new product
     const newProductWithId = {
-      id: uuidv4(),
+      productId: uuidv4(),
       title: newProduct.title,
       price: newProduct.price,
       categorey : newProduct.categorey,
       image: imageUrl,
       description: newProduct.description,
+      sellerId : sellerId
     };
 
     e.preventDefault();
@@ -56,7 +57,7 @@ function ProductForm() {
       categorey: '',
       description: '',
     });
-    navigate('/')
+    navigate('/dashboard')
   };
 
   const handleFileUpload = (event) => {

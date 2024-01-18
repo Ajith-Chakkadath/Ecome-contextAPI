@@ -1,8 +1,14 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const users = require('../Models/userSchema');
+const { ObjectId } = require('mongodb');
 const dotenv = require('dotenv');
 dotenv.config();
+
+const generateShortId = (originalObjectId) => {
+  // Encode the ObjectId to a shorter string using base64
+  return Buffer.from(originalObjectId.toHexString(), 'hex').toString('base64');
+};
 
 const register = async (req, res) => {
   try {
@@ -16,11 +22,14 @@ const register = async (req, res) => {
 
     await user.save();
 
-    // Send the user details in the response
+    // Generate a short ID
+    const shortId = generateShortId(user._id);
+
+    // Send the user details in the response with the short ID
     res.status(201).json({
       message: 'User registered successfully.',
       user: {
-        _id: user._id,
+        _id: shortId,
         username: user.username,
         email: user.email,
         role: user.role,
@@ -40,8 +49,11 @@ const login = async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(401).send('Invalid username or password.');
 
+    // Generate a short ID
+    const shortId = generateShortId(user._id);
+
     const accessToken = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET);
-    res.json({ accessToken, user });
+    res.json({ accessToken, user: { ...user._doc, _id: shortId } });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

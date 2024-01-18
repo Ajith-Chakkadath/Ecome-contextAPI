@@ -4,7 +4,7 @@ import { commonAPI } from './commanAPI';
 
 // List all products
 export const allProduct = async () => {
-  return await commonAPI('GET', `${base_URL}/productList`, '', '');
+  return await commonAPI('GET', `${base_URL}/productlist`, '', '');
 };
 
 // Login
@@ -35,7 +35,7 @@ export const addProduct = async (reqBody,sellerId) => {
 
 export const updateProduct = async (reqBody,sellerId ,productId) => {
     
-    return await commonAPI('POST', `${base_URL}/product/${sellerId}/${productId}`, reqBody, '');
+    return await commonAPI('PUT', `${base_URL}/product/${sellerId}/${productId}`, reqBody, '');
   };
 // Delete product
 export const deleteProduct = async (sellerId, productId) => {

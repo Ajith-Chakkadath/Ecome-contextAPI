@@ -18,10 +18,11 @@ function handleInputChange(e) {
   const  deleteProducts = async (e)=>{
     const updatedCart = product.filter((products) => products.id !== props.product.id);
     setProduct(updatedCart);
+    
     e.preventDefault()
 
     try{
-      const response = await deleteProduct(updatedCart,sellerId,props.product.id)
+      const response = await deleteProduct(sellerId,props.product.id)
       setSuccessMessage("Login Success");
       setErrorMessage('');
       

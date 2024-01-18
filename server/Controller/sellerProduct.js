@@ -1,11 +1,11 @@
 // controllers/productController.js
 
-const Product = require('');
+const sellerProduct = require('../Models/sellerProductSchema')
 
 // Get all products for a specific seller
 exports.getProductsBySeller = async (req, res) => {
   try {
-    const products = await Product.find({ sellerId: req.params.sellerId });
+    const products = await sellerProduct.find({ sellerId: req.params.sellerId });
     res.json(products);
   } catch (error) {
     console.error(error);
@@ -16,7 +16,7 @@ exports.getProductsBySeller = async (req, res) => {
 // Create a new product for a specific seller
 exports.createProduct = async (req, res) => {
   try {
-    const newProduct = await Product.create({ ...req.body, sellerId: req.params.sellerId });
+    const newProduct = await sellerProduct.create({ ...req.body, sellerId: req.params.sellerId });
     res.json(newProduct);
   } catch (error) {
     console.error(error);
@@ -27,7 +27,7 @@ exports.createProduct = async (req, res) => {
 // Update a product for a specific seller
 exports.updateProduct = async (req, res) => {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
+    const updatedProduct = await sellerProduct.findByIdAndUpdate(
       req.params.productId,
       req.body,
       { new: true }
@@ -42,7 +42,7 @@ exports.updateProduct = async (req, res) => {
 // Delete a product for a specific seller
 exports.deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.productId);
+    await sellerProduct.findByIdAndDelete(req.params.productId);
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
     console.error(error);
