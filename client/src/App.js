@@ -11,6 +11,8 @@ import BuyNowPage from './Pages/BuyNowPage/BuyNowPage';
 import PrivateRoute from './Services/PrivateRoutes/privateRoutes';
 import { productContext } from '../src/Services/Context/ContextAPI';
 import DashBoard from './Pages/DashBoard';
+import ProductManagement from './Pages/test';
+import ProductForm from './Component/Form/ProductForm';
 
 function App() {
   const { isAuthenticated } = useContext(productContext);
@@ -32,7 +34,16 @@ function App() {
           
         </Routes>
       </Router> */}
-      <DashBoard />
+
+      {/* <ProductManagement /> */}
+
+<Router>
+  <Routes>
+    <Route path='/' element={<DashBoard />} />
+    <Route path='/productform' element={<ProductForm />} />
+  </Routes>
+</Router>
+
     </div>
   );
 }

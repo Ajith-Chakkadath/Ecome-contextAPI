@@ -12,12 +12,13 @@ function ContextAPI({children}) {
     const [isSeller ,setIsSeller] = useState(false)
     const [allProductList , setAllProductList] = useState([])
     const [totalProducts , setTotalProducts] = useState()
-
+    const [product , setProduct]=useState([])
+    const[productAction , setProductAction] = useState(false)
   return (
     <>
       <productContext.Provider value={{wishListProducts,setWishListProducts,cartProducts,setCartProducts,detailsProducts,setDetailsProducts,
         allProducts,setAllProducts,sortingList,setSortingList,totalPrice,setTotalPrice,allProductList,setAllProductList,totalProducts,setTotalProducts
-         ,isAuthenticated,setIsAuthenticated , isSeller,setIsSeller}}>
+         ,isAuthenticated,setIsAuthenticated , isSeller,setIsSeller ,product,setProduct ,productAction,setProductAction}}>
         {children}
       </productContext.Provider>
     </>
