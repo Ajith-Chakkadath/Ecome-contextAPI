@@ -6,7 +6,7 @@ import { addProduct } from '../../Services/Router/API/allAPI';
 
 function ProductForm() {
   const [imageUrl, setImageUrl] = useState('');
-  const { product, setProduct , sellerId } = useContext(productContext);
+  const { product , setProduct ,sellerId } = useContext(productContext);
   const navigate = useNavigate()
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -14,7 +14,7 @@ function ProductForm() {
     title: '',
     price: '',
     image: '',
-    categorey : '',
+    category : '',
     description: '',
   });
 
@@ -25,36 +25,32 @@ function ProductForm() {
       productId: uuidv4(),
       title: newProduct.title,
       price: newProduct.price,
-      categorey : newProduct.categorey,
+      category : newProduct.category,
       image: imageUrl,
       description: newProduct.description,
       sellerId : sellerId
     };
-
+console.log(newProductWithId)
     e.preventDefault();
     try{
+      
       const response=await addProduct(newProductWithId,sellerId)
-      setSuccessMessage("Login Success");
+      console.log(response)
+      setSuccessMessage("Product added  Success");
       setErrorMessage('');
 
     } catch (error) {
       console.error(error);
-      
-      setErrorMessage('Login failed');
+      setErrorMessage('Product add failed');
       setSuccessMessage('');
       
     }
-
-
-
-
     setProduct([...product, newProductWithId]);
-
     setNewProduct({
       title: '',
       price: '',
       image: '',
-      categorey: '',
+      category: '',
       description: '',
     });
     navigate('/dashboard')
@@ -92,14 +88,14 @@ function ProductForm() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="exampleInputPassword1" className="form-label">Categorey</label>
-        <input
-          type="number"
-          className="form-control"
-          value={newProduct.categorey}
-          onChange={(e) => setNewProduct({ ...newProduct, categorey: e.target.value })}
-        />
-      </div>
+  <label htmlFor="exampleInputPassword1" className="form-label">Category</label>
+  <input
+    type="text"
+    className="form-control"
+    value={newProduct.category}  // Corrected variable name from categorey to category
+    onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+  />
+</div>
       <div className="row d-flex align-items-center">
         <div className="col">
           <div className="input-group mb-3">

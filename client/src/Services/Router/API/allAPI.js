@@ -22,24 +22,24 @@ export const register = async (reqBody) => {
 //list product 
 export const sellerProducts = async (reqBody,sellerId) => {
     
-    return await commonAPI('Get', `${base_URL}/product/${sellerId}`, reqBody, '');
+    return await commonAPI('GET', `${base_URL}/users/${sellerId}`, reqBody, '');
   };
 
 // Add product based on the sellerId
 export const addProduct = async (reqBody,sellerId) => {
     
-  return await commonAPI('POST', `${base_URL}/product/${sellerId}/addProduct`, reqBody, '');
+  return await commonAPI('POST', `${base_URL}/users/${sellerId}/addproduct`, reqBody, '');
 };
 
 // Update product
 
 export const updateProduct = async (reqBody,sellerId ,productId) => {
     
-    return await commonAPI('PUT', `${base_URL}/product/${sellerId}/${productId}`, reqBody, '');
+    return await commonAPI('PUT', `${base_URL}/users/${sellerId}/${productId}`, reqBody, '');
   };
 // Delete product
 export const deleteProduct = async (sellerId, productId) => {
-  return await commonAPI('DELETE', `${base_URL}/product/${sellerId}/${productId}`, '', '');
+  return await commonAPI('DELETE', `${base_URL}/users/${sellerId}/${productId}`,'','');
 };
 
 

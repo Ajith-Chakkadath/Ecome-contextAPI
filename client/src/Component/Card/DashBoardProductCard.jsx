@@ -15,21 +15,25 @@ function handleInputChange(e) {
   setEditedProduct((prevProduct)=>({...prevProduct, [e.target.name] :e.target.value}))
 }
 
+console.log(props.product.productId)
+
   const  deleteProducts = async (e)=>{
-    const updatedCart = product.filter((products) => products.id !== props.product.id);
+    const updatedCart = product.filter((products) => products.productId !== props.product.productId);
     setProduct(updatedCart);
-    
     e.preventDefault()
 
+    const productIds = props.product.productId
+
     try{
-      const response = await deleteProduct(sellerId,props.product.id)
-      setSuccessMessage("Login Success");
+      const response = await deleteProduct(sellerId,productIds)
+      console.log(response)
+      setSuccessMessage("Deletion Sucess");
       setErrorMessage('');
       
     }catch (error) {
       console.error(error);
       
-      setErrorMessage('Login failed');
+      setErrorMessage('Deleyion failed');
       setSuccessMessage('');
       
     }
@@ -46,13 +50,14 @@ function handleInputChange(e) {
         e.preventDefault();
 
         try{
-          const response = await updateProduct(updatedProducts,sellerId,props.product.id)
-          setSuccessMessage("Login Success");
+          const response = await updateProduct(updatedProducts,sellerId,props.product.productId)
+          console.log(response)
+          setSuccessMessage("update Success");
       setErrorMessage('');
         }catch (error) {
       console.error(error);
   
-      setErrorMessage('Login failed');
+      setErrorMessage('Update failed');
       setSuccessMessage('');
       
     }

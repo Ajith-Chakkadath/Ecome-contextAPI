@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const sellerProductSchema = new mongoose.Schema({
  
+  category: {
+    type: String,required: true
+  
+  },
   title: {
     type: String,
     required: true
@@ -22,16 +26,12 @@ const sellerProductSchema = new mongoose.Schema({
     required: true
   },
   productId:{
-    type:String
+    type:String,required: true
   },
   sellerId:{
-    type:String
+    type:String,required: true
   },
 
-  category: {
-    type: String,
-    required: true
-  },
 });
 
 module.exports = mongoose.model("sellerProducts", sellerProductSchema);

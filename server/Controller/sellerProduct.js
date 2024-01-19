@@ -1,11 +1,11 @@
 // controllers/productController.js
 
-const sellerProduct = require('../Models/sellerProductSchema')
+const sellerProducts = require('../Models/sellerProductSchema')
 
 // Get all products for a specific seller
-exports.getProductsBySeller = async (req, res) => {
+const getProductsBySeller = async (req, res) => {
   try {
-    const products = await sellerProduct.find({ sellerId: req.params.sellerId });
+    const products = await sellerProducts.find({ sellerId: req.params.sellerId });
     res.json(products);
   } catch (error) {
     console.error(error);
@@ -14,9 +14,9 @@ exports.getProductsBySeller = async (req, res) => {
 };
 
 // Create a new product for a specific seller
-exports.createProduct = async (req, res) => {
+const createProduct = async (req, res) => {
   try {
-    const newProduct = await sellerProduct.create({ ...req.body, sellerId: req.params.sellerId });
+    const newProduct = await sellerProducts.create({ ...req.body, sellerId: req.params.sellerId });
     res.json(newProduct);
   } catch (error) {
     console.error(error);
@@ -25,9 +25,9 @@ exports.createProduct = async (req, res) => {
 };
 
 // Update a product for a specific seller
-exports.updateProduct = async (req, res) => {
+const updateProduct = async (req, res) => {
   try {
-    const updatedProduct = await sellerProduct.findByIdAndUpdate(
+    const updatedProduct = await sellerProducts.findByIdAndUpdate(
       req.params.productId,
       req.body,
       { new: true }
@@ -40,12 +40,21 @@ exports.updateProduct = async (req, res) => {
 };
 
 // Delete a product for a specific seller
-exports.deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res) => {
   try {
-    await sellerProduct.findByIdAndDelete(req.params.productId);
+    await sellerProducts.findByIdAndDelete(req.params.productId);
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+};
+
+
+
+module.exports = {
+getProductsBySeller,
+deleteProduct,
+updateProduct,
+createProduct
 };

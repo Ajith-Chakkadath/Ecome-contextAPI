@@ -4,10 +4,25 @@ const users = require('../Models/userSchema');
 const { ObjectId } = require('mongodb');
 const dotenv = require('dotenv');
 dotenv.config();
+const {updateProductInDatabase , deleteProductFromDatabase} =require('../Middelware/updateOperation')
+
+const sellerProducts = require('../Models/sellerProductSchema')
+const mongoose = require('mongoose');
+
+sellerProducts
+
+
+// const createSellerCollection = (sellerId) => {
+//   const collectionName = `${sellerId}`;
+//   return mongoose.model(collectionName, sellerProducts);
+// };
 
 const generateShortId = (originalObjectId) => {
-  // Encode the ObjectId to a shorter string using base64
-  return Buffer.from(originalObjectId.toHexString(), 'hex').toString('base64');
+  const base64Encoded = Buffer.from(originalObjectId.toHexString(), 'hex').toString('base64');
+  
+  // Remove padding characters ('=')
+  const shortId = base64Encoded.replace(/=+$/, '');
+  return shortId;
 };
 
 const register = async (req, res) => {
@@ -24,7 +39,9 @@ const register = async (req, res) => {
 
     // Generate a short ID
     const shortId = generateShortId(user._id);
-
+  //   if(user.role =='seller'){
+  //     createSellerCollection(shortId);
+  //  }
     // Send the user details in the response with the short ID
     res.status(201).json({
       message: 'User registered successfully.',
@@ -60,7 +77,61 @@ const login = async (req, res) => {
   }
 };
 
+const createProduct = async (req, res) => {
+  try {
+
+    console.log(req.params.sellerId)
+    console.log(req.body)
+    const newProduct = await sellerProducts.create({ ...req.body, sellerId:req.params.sellerId });
+    res.json(newProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const getProductsBySeller = async (req, res) => {
+  try {
+    const products = await sellerProducts.find({ sellerId: req.params.sellerId });
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const sellerId = req.params.sellerId;
+    const productId = req.params.productId;
+    const updateData = req.body;
+    const updatedProduct = await updateProductInDatabase(sellerId, productId, updateData
+    );
+    res.json(updatedProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+const deleteProduct = async (req, res) => {
+  try {
+    console.log('Received DELETE request:', req.params);
+    const sellerId = req.params.sellerId;
+    const productId = req.params.productId;
+
+    const deletedProduct = await deleteProductFromDatabase(sellerId, productId);
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   register,
   login,
+  createProduct,
+  getProductsBySeller,
+  updateProduct,
+  deleteProduct
 };

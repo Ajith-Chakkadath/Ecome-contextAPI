@@ -1,8 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cors = require('cors');  
-
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
@@ -11,6 +9,7 @@ const PORT = process.env.PORT || 4000;
 const authRoute = require('./Router/userRoutes');
 const productRoute = require('./Router/productRoutes')
 const sellerRoutes = require('./Router/sellerProductRoutes')
+// const bodyParser = require('body-parser');
 
 dotenv.config();
 
@@ -23,15 +22,16 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
 });
+// app.use(bodyParser.json());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-app.use(cors());  // Use the correct module
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpecs))
-app.use(bodyParser.json());
-app.use('/',productRoute)
-app.use('/product',sellerRoutes)
-app.use('/users', authRoute);
+app.use(cors());
+
+app.use('/', productRoute);
+// app.use('/' ,sellerRoutes);
+app.use('/users', cors(), authRoute);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

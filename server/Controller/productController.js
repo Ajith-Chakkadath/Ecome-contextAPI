@@ -1,10 +1,14 @@
 
 const products = require('../Models/productSchema')
+const sellerProducts = require('../Models/sellerProductSchema')
 
 const allProducts = async (req, res) => {
   try {
     const productslist = await products.find();
-    res.json(productslist);
+    const sellerp = await sellerProducts.find()
+    const allProduct = [...productslist,...sellerp]
+
+    res.json(allProduct);
 
   } catch (error) {
     console.error(error);
