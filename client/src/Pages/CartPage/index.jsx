@@ -1,12 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext,useEffect,useState } from 'react';
 import CartCard from '../../Component/Card/CartCard';
 import Navbars from '../../Component/Navbar/Index';
 import { productContext } from '../../Services/Context/ContextAPI';
+import { userCartList } from '../../Services/Router/API/allAPI';
 
 function CartPage() {
-  const { cartProducts,  } = useContext(productContext);
+  const { cartProducts,userId  } = useContext(productContext);
   const listOfProducts = cartProducts; // Use an empty array if cartproducts is undefined
   const totalPrice = listOfProducts.reduce((sum, product) => sum + parseFloat( product.price), 0);
+
+
+  const [listOfProduct, setListOfProduct] = useState([]);
+  const productall = async (userId) => {
+    const result = await userCartList(userId);
+    setListOfProduct(result.data);
+  };
+
+  useEffect(() => {
+   
+    productall(userId);
+  }, []);
+
+  console.log(listOfProduct);
 
   return (
     <>

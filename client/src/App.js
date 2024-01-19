@@ -15,8 +15,10 @@ import ProductManagement from './Pages/test';
 import ProductForm from './Component/Form/ProductForm';
 
 function App() {
-  const { isAuthenticated } = useContext(productContext);
-  console.log(isAuthenticated)
+  let isAuthenticated = localStorage.getItem('authentication')
+  isAuthenticated = JSON.parse(isAuthenticated);
+
+
 
   return (
     <div className="App">

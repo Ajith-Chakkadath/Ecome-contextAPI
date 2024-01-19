@@ -20,6 +20,7 @@ function Register() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(loginDetails)
 
     try {
       const response = await register(loginDetails);
@@ -31,6 +32,13 @@ function Register() {
       setErrorMessage("Registration failed");
       setSuccessMessage("");
     }
+
+    setLoginDetails({
+      username: "",
+      email: "",
+      password: "",
+      role: ""
+    })
   };
 
   return (
@@ -86,23 +94,18 @@ function Register() {
                     </div>
 
                     <select
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option selected>Select who are you</option>
-                      <option
-                        value={(loginDetails.role = "customer")}
-                        onChange={readLoginValue}
-                      >
-                        Customer
-                      </option>
-                      <option
-                        value={(loginDetails.role = "seller")}
-                        onChange={readLoginValue}
-                      >
-                        Seller
-                      </option>
-                    </select>
+  className="form-select"
+  aria-label="Default select example"
+  name="role"
+  value={loginDetails.role}
+  onChange={readLoginValue}
+>
+  <option value=" ">Select who you are</option>
+  <option value="seller">Seller</option>
+  <option value="customer">Customer</option>
+ 
+</select>
+
                   </div>
 
                   {/* <div className="form-outline mb-4">

@@ -20,9 +20,9 @@ export const register = async (reqBody) => {
 
 // Seller
 //list product 
-export const sellerProducts = async (reqBody,sellerId) => {
+export const sellerProducts = async (sellerId) => {
     
-    return await commonAPI('GET', `${base_URL}/users/${sellerId}`, reqBody, '');
+    return await commonAPI('GET', `${base_URL}/users/${sellerId}`, '', '');
   };
 
 // Add product based on the sellerId
@@ -45,12 +45,36 @@ export const deleteProduct = async (sellerId, productId) => {
 
 // User
 
+//All product user brought
+export const userProductList = async(userId)=>{
+  return await commonAPI('GET',`${base_URL}/users/${userId}`,'','')
+}
+
+// list of product added to cart
+export const userCartList = async(userId)=>{
+  return await commonAPI('GET',`${base_URL}/users/${userId}/cart`,'','')
+}
 // Add to cart
+export const userCartAdd =async (reqBody,userId) => {
+  return await commonAPI('POST', `${base_URL}/users/${userId}/cart/addproduct`, reqBody, '');
+}
+//delet from Cart
 
-// Delete from cart
+export const userCartDelete = async (userId, productId) => {
+  return await commonAPI('DELETE', `${base_URL}/users/${userId}/cart/${productId}`,'','');
+}
 
+// list of product added to buying list 
+export const userBuyList = async(userId)=>{
+  return await commonAPI('GET',`${base_URL}/users/${userId}/buy`,'','')
+}
 // Add to buying list
+export const userBuyAdd =async (reqBody,userId) => {
+  return await commonAPI('POST', `${base_URL}/users/${userId}/buy/addproduct`, reqBody, '');
+}
 
 // Delete from buying list
-
+export const userBuyDelete = async (userId, productId) => {
+  return await commonAPI('DELETE', `${base_URL}/users/${userId}/buy/${productId}`,'','');
+}
 // Product bought

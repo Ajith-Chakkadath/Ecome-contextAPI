@@ -8,7 +8,7 @@ import { productContext } from '../../Services/Context/ContextAPI';
 
 
 function Login() {
-  const {setIsAuthenticated, setIsSeller , setSellerId} = useContext(productContext)
+  const { setIsSeller , setSellerId ,setUserId} = useContext(productContext)
   const [loginDetails, setLoginDetails] = useState({
     username: "",
     email:"",
@@ -27,7 +27,8 @@ function Login() {
 
     try {
       const response = await login(loginDetails);
-       setIsAuthenticated(true)
+      localStorage.setItem('authentication' ,true)
+     
       setSuccessMessage("Login Success");
       setErrorMessage('');
       navigate('/');
@@ -42,13 +43,14 @@ function Login() {
       }
       else{
         setIsSeller(false)
+        setUserId(userId)
       }
      
       
       // Handle token as needed in your authentication flow
     } catch (error) {
       console.error(error);
-      setIsAuthenticated(false)
+      localStorage.setItem('authentication',false)
       setErrorMessage('Login failed');
       setSuccessMessage('');
       

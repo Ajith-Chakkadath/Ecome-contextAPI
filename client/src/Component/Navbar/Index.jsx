@@ -4,12 +4,10 @@ import { productContext } from "../../Services/Context/ContextAPI";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbars() {
-  const { wishListProducts , cartProducts ,isSeller ,isAuthenticated , setIsAuthenticated} = useContext(productContext);
+  const { wishListProducts , cartProducts ,isSeller } = useContext(productContext);
   const [isValue, setIsValue] = useState('logout');
-   const navigate = useNavigate()
-function handleChange(){
-  isAuthenticated(false)
-}
+  let isAuthenticated = localStorage.getItem('authentication')
+  isAuthenticated = JSON.parse(isAuthenticated);
  
   return (
     <Navbar className="bg-body-tertiary py-3">
@@ -34,7 +32,7 @@ function handleChange(){
           
           {isAuthenticated ? (
         <button type="button" className="btn btn-primary me-5" onClick={() => {
-          setIsAuthenticated(false);
+          localStorage.setItem('authentication',false);
           setIsValue('login');
         }}>
           {isValue === 'login' ? (

@@ -7,7 +7,9 @@ import { Link, useNavigate} from 'react-router-dom'
 
 function CartCard(props) {
     const navigate = useNavigate()
-    const { cartProducts , setCartProducts ,isAuthenticated ,setIsAuthenticated } = useContext(productContext);
+    const { cartProducts , setCartProducts } = useContext(productContext);
+    const isAuthenticated = localStorage.getItem('authentication')
+    isAuthenticated = JSON.parse(isAuthenticated);
 
     function deleteFromList(){
         const updatedCart = cartProducts.filter((product) => product.id !== props.data?.id);

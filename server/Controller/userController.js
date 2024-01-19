@@ -77,11 +77,22 @@ const login = async (req, res) => {
   }
 };
 
+// const sellerProductList =async(req,res)=>{
+//   try {
+//     const sellerp = await sellerProducts.findById(req.params.sellerId)
+//     res.json(sellerp);
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// }
+
 const createProduct = async (req, res) => {
   try {
 
-    console.log(req.params.sellerId)
-    console.log(req.body)
+    // console.log(req.params.sellerId)
+    console.log(req)
     const newProduct = await sellerProducts.create({ ...req.body, sellerId:req.params.sellerId });
     res.json(newProduct);
   } catch (error) {

@@ -23,6 +23,7 @@ console.log(props.product.productId)
     e.preventDefault()
 
     const productIds = props.product.productId
+    console.log(sellerId,productIds)
 
     try{
       const response = await deleteProduct(sellerId,productIds)

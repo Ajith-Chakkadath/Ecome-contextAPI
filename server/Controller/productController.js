@@ -16,10 +16,6 @@ const allProducts = async (req, res) => {
   }
 };
 
-
-
-
-
   module.exports = {
    allProducts
   };
