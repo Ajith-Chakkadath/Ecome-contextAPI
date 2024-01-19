@@ -57,7 +57,7 @@ uuidv4() is employed for generating unique identifiers, ensuring data integrity 
 Getting Started
 
 Installation
-Clone the repository: git clone https://github.com/yourusername/ecommerce.git
+Clone the repository: git clone(https://github.com/Ajith-Chakkadath/Ecome-contextAPI.git)
 Navigate to the project directory: cd ecommerce
 Install dependencies: npm install
 Configuration
