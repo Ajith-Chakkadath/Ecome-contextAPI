@@ -1,18 +1,46 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { productContext } from "../../Services/Context/ContextAPI";
 import { Link } from "react-router-dom";
+import { userCartAdd } from "../../Services/Router/API/allAPI";
+
 
 function ProductCard(props) {
-  const { setCartProducts, setDetailsProducts } = useContext(productContext);
+  const contextValues = useContext(productContext);
+  const { setCartProducts, setDetailsProducts, userId } = contextValues;
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   function knowProduct() {
     setDetailsProducts(props.data);
   }
 
-  function addToCart() {
+const addToCart = async(e)=> {
+
     setCartProducts((prevCartlist) => [...prevCartlist, props.data]);
+
+    const reqBody = {
+      sellerId: props.data.sellerId,
+      productId: props.data.productId
+    };
+    console.log(props.data)
+    console.log(userId)
+  
+    try {
+
+      const response = await userCartAdd(reqBody ,userId)
+      console.log(response)
+      setSuccessMessage("Product added  Success");
+      setErrorMessage('');
+      
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Product add failed');
+      setSuccessMessage('');
+    }
+
   }
 
   return (

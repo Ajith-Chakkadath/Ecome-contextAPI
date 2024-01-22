@@ -46,7 +46,7 @@ const register = async (req, res) => {
     res.status(201).json({
       message: 'User registered successfully.',
       user: {
-        _id: shortId,
+        _id: user._id,
         username: user.username,
         email: user.email,
         role: user.role,

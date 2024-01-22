@@ -8,7 +8,6 @@ function ContextAPI({children}) {
     const [allProducts,setAllProducts]=useState()
     const [sortingList , setSortingList] = useState([])
     const [totalPrice ,setTotalPrice] = useState(0)
-    const [isAuthenticated , setIsAuthenticated]=useState(false)
     const [isSeller ,setIsSeller] = useState(false)
     const [allProductList , setAllProductList] = useState([])
     const [totalProducts , setTotalProducts] = useState()
@@ -20,7 +19,7 @@ function ContextAPI({children}) {
     <>
       <productContext.Provider value={{wishListProducts,setWishListProducts,cartProducts,setCartProducts,detailsProducts,setDetailsProducts,
         allProducts,setAllProducts,sortingList,setSortingList,totalPrice,setTotalPrice,allProductList,setAllProductList,totalProducts,setTotalProducts
-         ,isAuthenticated,setIsAuthenticated , isSeller,setIsSeller ,product,setProduct ,productAction,setProductAction, sellerId,setSellerId,userId,setUserId}}>
+         , isSeller,setIsSeller ,product,setProduct ,productAction,setProductAction, sellerId,setSellerId,userId,setUserId}}>
         {children}
       </productContext.Provider>
     </>

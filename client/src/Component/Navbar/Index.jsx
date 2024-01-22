@@ -33,6 +33,7 @@ function Navbars() {
           {isAuthenticated ? (
         <button type="button" className="btn btn-primary me-5" onClick={() => {
           localStorage.setItem('authentication',false);
+          localStorage.removeItem('authentication');
           setIsValue('login');
         }}>
           {isValue === 'login' ? (
